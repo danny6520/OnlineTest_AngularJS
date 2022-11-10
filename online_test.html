@@ -1,83 +1,123 @@
 <html>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<body>
-<style>
-   
-th, td {
-
-text-align: left;
-padding: 4px;
-} 
-tr:nth-child(even) {background-color: #f2f2f2;}
-</style>
-<div class="container">
-<div style="overflow-x:auto;">
-<div ng-app="myApp" ng-controller="myController"> 
-<table ng-repeat="exam_source in list">
-   
-    <tr><td><b>Question: </b></td><td><font color="brown"><b>{{exam_source.question}}</b></font></td></tr>
-    <tr><td><b>Question Type: </b></td><td><font color="red"><b>{{exam_source.qtype}}</b></font></td></tr>
-    <tr><td><input type="radio">(a)</button></td><td>
-
-       <!-- <div ng-if="{{exam_source.qtype}} == image">
-            <img src="{{exam_source.optone}}">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+        crossorigin="anonymous"
+    />
+    <body>
+        <style>
+            th,
+            td {
+                text-align: left;
+                padding: 4px;
+            }
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+        </style>
+        <div class="container">
+            <div style="overflow-x: auto">
+                <div ng-app="myApp" ng-controller="myController">
+                    <table ng-repeat="exam_source in list">
+                        <tr>
+                            <td><b>Question: </b></td>
+                            <td>
+                                <font color="brown"
+                                    ><b>{{exam_source.question}}</b></font
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Question Type: </b></td>
+                            <td>
+                                <font color="red"
+                                    ><b>{{exam_source.qtype}}</b></font
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" />(a)</td>
+                            <td>
+                                <div ng-if="exam_source.qtype == 'image'">
+                                    <img src="{{exam_source.optone}}" />
+                                </div>
+                                <div ng-if="exam_source.qtype == 'text'">
+                                    {{exam_source.optone}}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" />(b)</td>
+                            <td>
+                                <div ng-if="exam_source.qtype == 'image'">
+                                    <img src="{{exam_source.opttwo}}" />
+                                </div>
+                                <div ng-if="exam_source.qtype == 'text'">
+                                    {{exam_source.opttwo}}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" />(c)</td>
+                            <td>
+                                <div ng-if="exam_source.qtype == 'image'">
+                                    <img src="{{exam_source.optthree}}" />
+                                </div>
+                                <div ng-if="exam_source.qtype == 'text'">
+                                    {{exam_source.optthree}}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" />(d)</td>
+                            <td>
+                                <div ng-if="exam_source.qtype == 'image'">
+                                    <img src="{{exam_source.optfour}}" />
+                                </div>
+                                <div ng-if="exam_source.qtype == 'text'">
+                                    {{exam_source.optfour}}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-success">Submit</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                </div>
+            </div>
         </div>
-        <div ng-if="{{exam_source.qtype}} == text">
-           {{exam_source.optone}}
-        </div>
-        -->
-        {{exam_source.optone}}
-        </td></tr>
-    <tr><td><input type="radio">(b)</button></td><td>{{exam_source.opttwo}}</td></tr>
-    <tr><td><input type="radio">(c)</button></td><td>{{exam_source.optthree}}</td></tr>
-    <tr><td><input type="radio">(d)</button></td><td>{{exam_source.optfour}}</td></tr>
-    <tr><td><button class="btn btn-success">Submit</button></td></tr>
-</table>
-<br>
-</div>
+        <script>
+            var app = angular.module('myApp', []);
+            app.controller('myController', function ($scope, $http) {
+                var request = {
+                    method: 'get',
+                    url: 'exam_source.json',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                };
 
-</div>
-</div>
-<script>
+                $scope.arrimage_values = new Array();
 
-    
-   var app = angular.module('myApp', []);
-    app.controller('myController',
-        function ($scope, $http) {
+                $http(request)
+                    .success(function (jsonData) {
+                        $scope.arrimage_values = jsonData;
 
-            var request = {
-                method: 'get',
-                url: 'exam_source.json',
-                dataType: 'json',
-                contentType: "application/json"
-            };
-
-            $scope.arrimage_values = new Array;
-
-            $http(request)
-                .success(function (jsonData) {
-                    $scope.arrimage_values = jsonData;
-                    
-                    $scope.list = $scope.arrimage_values;
-                    var arrlength = $scope.list.length;
-                    var j;
-                    for(let j=0; j<arrlength; j++)
-                    {
-                        console.log(j);
-                        console.log($scope.list[j].qtype);
-                    }
-                    
-                    
-                    
-                })
-                .error(function () {
-
-                });
-        });
-
-</script>
-</body>
+                        $scope.list = $scope.arrimage_values;
+                        var arrlength = $scope.list.length;
+                        var j;
+                        for (let j = 0; j < arrlength; j++) {
+                            console.log(j);
+                            console.log($scope.list[j].qtype);
+                        }
+                    })
+                    .error(function () {});
+            });
+        </script>
+    </body>
 </html>
