@@ -14,14 +14,67 @@
                 text-align: left;
                 padding: 4px;
             }
-            tr:nth-child(even) {
+            tr:nth-child(1){
                 background-color: #f2f2f2;
             }
+            table {
+                border: 1px solid black;
+            }
+            #shadow_box_grey {
+            
+                border: 1px solid;
+                padding: 20px;
+                box-shadow: 15px 10px 18px gray;
+                background: white;
+            }
+            body {
+                background-color: #f3f3f3;
+            }
+            #footer {
+                background-color: ghostwhite;
+            }
         </style>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">Online Test</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+        
+              <div class="collapse navbar-collapse" id="navbarsExample03">
+                <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.html">Take exam</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="add_question.php">Add Questions</a>
+                  </li>
+<!--
+                  <li class="nav-item">
+                    <a class="nav-link disabled">Disabled</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <form role="search">
+                  <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                </form>
+            -->
+              </div>
+            </div>
+          </nav>
+
         <div class="container">
+            <div id="shadow_box_grey">
             <div style="overflow-x: auto">
                 <div ng-app="myApp" ng-controller="myController">
-                    <table ng-repeat="exam_source in list">
+                    <table ng-repeat="exam_source in list" class="table table-sm table-hover">
                         <tr>
                             <td><b>Question: </b></td>
                             <td>
@@ -30,7 +83,7 @@
                                 >
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="table-info">
                             <td><b>Question Type: </b></td>
                             <td>
                                 <font color="red"
@@ -39,7 +92,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><input type="radio" />(a)</td>
+                            <td><input type="radio" name="test_ans" />(a)</td>
                             <td>
                                 <div ng-if="exam_source.qtype == 'image'">
                                     <img src="{{exam_source.optone}}" />
@@ -50,7 +103,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><input type="radio" />(b)</td>
+                            <td><input type="radio" name="test_ans" />(b)</td>
                             <td>
                                 <div ng-if="exam_source.qtype == 'image'">
                                     <img src="{{exam_source.opttwo}}" />
@@ -61,7 +114,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><input type="radio" />(c)</td>
+                            <td><input type="radio" name="test_ans" />(c)</td>
                             <td>
                                 <div ng-if="exam_source.qtype == 'image'">
                                     <img src="{{exam_source.optthree}}" />
@@ -72,7 +125,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><input type="radio" />(d)</td>
+                            <td><input type="radio" name="test_ans" />(d)</td>
                             <td>
                                 <div ng-if="exam_source.qtype == 'image'">
                                     <img src="{{exam_source.optfour}}" />
@@ -82,22 +135,24 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <button class="btn btn-success">Submit</button>
-                            </td>
-                        </tr>
+                       
                     </table>
                     <br />
+                   <center> <button class="btn btn-success">Submit Exam</button> </center>
                 </div>
             </div>
+            </div>
         </div>
+        <br /><br />
+        <div class="fixed-bottom" id="footer">
+            <center>Efreelearn | All rights reserved</center>
+            </div>
         <script>
             var app = angular.module('myApp', []);
             app.controller('myController', function ($scope, $http) {
                 var request = {
                     method: 'get',
-                    url: 'exam_source.json',
+                    url: 'fetch_online_test_data.php',
                     dataType: 'json',
                     contentType: 'application/json',
                 };
