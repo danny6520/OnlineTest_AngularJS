@@ -74,12 +74,12 @@
             <div id="shadow_box_grey">
             <div style="overflow-x: auto">
                 <div ng-app="myApp" ng-controller="myController">
-                    <table ng-repeat="exam_source in list" class="table table-sm table-hover">
+                    <table ng-repeat="" class="table table-sm table-hover">
                         <tr>
                             <td><b>Question: </b></td>
                             <td>
                                 <font color="brown"
-                                    ><b>{{exam_source.question}}</b></font
+                                    ><b>{{myApp.question}}</b></font
                                 >
                             </td>
                         </tr>
@@ -87,7 +87,7 @@
                             <td><b>Question Type: </b></td>
                             <td>
                                 <font color="red"
-                                    ><b>{{exam_source.qtype}}</b></font
+                                    ><b>{{myApp.qtype}}</b></font
                                 >
                             </td>
                         </tr>
@@ -152,7 +152,7 @@
             app.controller('myController', function ($scope, $http) {
                 var request = {
                     method: 'get',
-                    url: 'fetch_online_test_data.php',
+                    url: 'http://localhost:8002/online_test_data',
                     dataType: 'json',
                     contentType: 'application/json',
                 };
